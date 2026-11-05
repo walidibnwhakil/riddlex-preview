@@ -26,7 +26,7 @@ jobs:
           mkdir site
           git -C source archive FETCH_HEAD:games/riddlex index.html style.css app.js engine-v2.js history.js print-photo.js runtime-loader.js images runtime | tar -x -C site
           mkdir site/rc1
-          git -C source fetch --depth=1 https://github.com/walidibnwhakil/walid-ai-website.git ee986ab674b6142f0ea1c26c7642fde29e001cfa
+          git -C source fetch --depth=1 https://github.com/walidibnwhakil/walid-ai-website.git e6981fdf4d8e23c6de1921b2ae7f17d096dabecf
           git -C source archive FETCH_HEAD:games/riddlex index.html style.css app.js engine-v2.js history.js print-photo.js runtime-loader.js scene-motion.js scene-props.js guess-reveal.js handwriting.js images runtime | tar -x -C site/rc1
           git -C source rev-parse FETCH_HEAD > site/rc1/build-commit.txt
           touch site/.nojekyll
