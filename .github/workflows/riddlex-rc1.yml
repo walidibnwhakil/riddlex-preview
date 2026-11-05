@@ -25,6 +25,8 @@ jobs:
           git -C source fetch --depth=1 https://github.com/walidibnwhakil/walid-ai-website.git 7f2e393eccd92e3f976e1fac3a75eef63b59f399
           mkdir site
           git -C source archive FETCH_HEAD:games/riddlex index.html style.css app.js engine-v2.js history.js print-photo.js runtime-loader.js images runtime | tar -x -C site
+          mkdir site/rc1
+          cp -a site/index.html site/style.css site/*.js site/images site/runtime site/rc1/
           touch site/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
