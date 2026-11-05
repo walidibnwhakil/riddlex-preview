@@ -1,0 +1,33 @@
+name: Publish Riddlex RC1
+on:
+  workflow_dispatch:
+  push:
+    branches: [preview]
+    paths: [.github/workflows/riddlex-rc1.yml]
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: riddlex-preview-pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Export pinned game from public source
+        shell: bash
+        run: |
+          git init source
+          git -C source fetch --depth=1 https://github.com/walidibnwhakil/walid-ai-website.git 7f2e393eccd92e3f976e1fac3a75eef63b59f399
+          mkdir site
+          git -C source archive FETCH_HEAD:games/riddlex index.html style.css app.js engine-v2.js history.js print-photo.js runtime-loader.js images runtime | tar -x -C site
+          touch site/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - uses: actions/deploy-pages@v4
+        id: deployment
